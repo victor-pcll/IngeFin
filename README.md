@@ -1,33 +1,41 @@
-# IngeFin
-<<<<<<< HEAD
+# IngeFin : MarketFluctuationsAnalyzer
 
-This template should help get you started developing with Vue 3 in Vite.
+## Description
 
-## Recommended IDE Setup
+**MarketFluctuationsAnalyzer** is a web application designed to process and analyze financial market data in order to evaluate market fluctuations. By using real-time data and advanced analytical models, this app provides insights into the dynamic behavior of various financial markets, helping users make informed decisions based on market trends and volatility.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Features
 
-## Customize configuration
+- **Real-time Market Data**: Fetches live data from various financial markets (stocks, cryptocurrencies, etc.).
+- **Market Analysis**: Analyzes fluctuations, trends, and volatility of the markets.
+- **Data Visualization**: Interactive graphs and charts to display market trends and fluctuations.
+- **AI-driven Insights**: Uses machine learning algorithms to provide predictions and insights on market behavior.
+- **User-Friendly Interface**: Easy-to-use interface for both beginner and advanced users to interact with financial data.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Technologies Used
 
-## Project Setup
+- **Frontend**: 
+  - Vite
+  - Vue
+  - Tailwind CSS
+  - Chart.js / D3.js (for data visualization)
+- **Backend**: 
+  - Node.js (for data fetching and processing)
+  - Rust (for advanced data analysis and machine learning models)
+  - WebSocket or REST APIs (for real-time data updates)
+- **Additional Tools**: 
+  - Git for version control
+  - Docker for containerization
 
-```sh
-npm install
-```
+## Installation
 
-### Compile and Hot-Reload for Development
+### Prerequisites
+- Node.js (v14 or later)
+- Rust
+- Git
 
-```sh
-npm run dev
-```
+### Steps
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-=======
-A web application for real-time financial market analysis
->>>>>>> 0207a460fbcd5e18e648b37c013a48ef502462cf
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/MarketFluctuationsAnalyzer.git
