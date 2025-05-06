@@ -1,4 +1,5 @@
 # IngeFin
+<<<<<<< HEAD
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -27,3 +28,6 @@ npm run dev
 ```sh
 npm run build
 ```
+=======
+A web application for real-time financial market analysis
+>>>>>>> 0207a460fbcd5e18e648b37c013a48ef502462cf
