@@ -1,70 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Line } from 'vue-chartjs'
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-} from 'chart.js'
-
-ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement)
-
-const chartData = ref(null)
-
-async function fetchNikkeiData() {
-  try {
-    // Vérifie si les données sont déjà dans le cache
-    const cached = sessionStorage.getItem("nikkeiData")
-    if (cached) {
-      const data = JSON.parse(cached)
-      updateChartData(data)
-      return
-    }
-
-    // Sinon, appel à l'API
-    const res = await fetch('http://127.0.0.1:5000/api/predict_nikkei') // Change the endpoint to match the Nikkei data API
-    if (!res.ok) throw new Error("Erreur API")
-    const data = await res.json()
-
-    // Cache les données dans sessionStorage
-    sessionStorage.setItem("nikkeiData", JSON.stringify(data))
-
-    updateChartData(data)
-
-  } catch (e) {
-    console.error("Erreur lors du chargement des données :", e)
-  }
-}
-
-function updateChartData(data) {
-  chartData.value = {
-    labels: [...data.historical_dates, ...data.forecast_dates],
-    datasets: [
-      {
-        label: 'Historique',
-        data: [...data.historical, ...Array(data.forecast.length).fill(null)],
-        borderColor: 'blue',
-        tension: 0.3,
-      },
-      {
-        label: 'Prévision',
-        data: [...Array(data.historical.length).fill(null), ...data.forecast],
-        borderColor: 'orange',
-        borderDash: [5, 5],
-        tension: 0.3,
-      }
-    ]
-  }
-}
-
-onMounted(() => {
-  fetchNikkeiData()
-})
+import ChartWithCache from './ChartWithCache.vue'
 </script>
 
 <template>
@@ -73,10 +8,7 @@ onMounted(() => {
       Le <strong>Nikkei 225</strong> est un indice boursier japonais qui suit la performance des <strong>225 plus grandes entreprises cotées à la Bourse de Tokyo</strong>. Il est l’un des indices boursiers les plus suivis en Asie et représente un indicateur clé de l’économie japonaise.
     </p>
 
-    <div v-if="chartData" class="bg-white p-4 m-8">
-        <Line :data="chartData" />
-    </div>
-    <div v-else class="text-gray-500 text-sm mb-4">Chargement du graphique...</div>
+    <ChartWithCache api-url="http://127.0.0.1:5000/api/predict_NEKKEI" cache-key="'nikkeiData'"/>
 
     <p class="mb-4">
       Créé en <strong>1950</strong>, le Nikkei 225 reflète la performance de diverses entreprises japonaises, allant de l’industrie automobile à la haute technologie. L’indice est calculé sur une base de prix (et non de capitalisation boursière), ce qui signifie que les sociétés avec des actions ayant un prix plus élevé influencent davantage l’indice, indépendamment de leur taille de capitalisation boursière.

@@ -1,98 +1,61 @@
 <script setup>
-  import IndicesChart from './components/IndicesChart.vue'
-  import Predict from './components/Predict.vue'
-  import SNP500 from './components/SP500.vue'
-  import CAC40 from './components/CAC40.vue'
-  import NASDAQ from './components/NASDAQ.vue'
-  import DAX from './components/DAX.vue'
-  import NIKKEI from './components/NIKKEI.vue'
-
-  import { ref } from 'vue'
-
-  const activeSection = ref('intro')
-
-  function scrollToSection(id) {
-    const el = document.getElementById(id)
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' })
-      activeSection.value = id
-    }
-  }
+import { useRoute } from 'vue-router'
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-gray-100">
+  <div class="flex min-h-screen bg-white">
     <!-- Sidebar -->
-    <aside class="w-64 h-screen fixed top-0 left-0 bg-white shadow-md p-6 rounded-lg">
-      <h2 class="text-xl font-semibold mb-4 text-blue-600">INDICES</h2>
+    <aside class="w-64 h-screen fixed top-0 left-0 bg-gray-100 shadow-md p-6 rounded-lg">
+      <h2 class="text-xl font-semibold mb-4 text-blue-600">M.F.A.</h2>
       <nav class="space-y-2">
-        <button
+        <router-link
+          to="/"
           class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-100"
-          :class="{ 'bg-blue-200': activeSection === 'S&P 500' }"
-          @click="scrollToSection('S&P 500')"
+          :class="{ 'bg-blue-200': $route.path === '/' }"
+        >
+          Indices
+        </router-link>
+        <router-link
+          to="/sp500"
+          class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-100"
+          :class="{ 'bg-blue-200': $route.path === '/sp500' }"
         >
           S&P 500
-        </button>
-        <button
+        </router-link>
+        <router-link
+          to="/cac40"
           class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-100"
-          :class="{ 'bg-blue-200': activeSection === 'CAC 40' }"
-          @click="scrollToSection('CAC 40')"
+          :class="{ 'bg-blue-200': $route.path === '/cac40' }"
         >
           CAC 40
-        </button>
-        <button
+        </router-link>
+        <router-link
+          to="/nasdaq"
           class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-100"
-          :class="{ 'bg-blue-200': activeSection === 'NASDAQ' }"
-          @click="scrollToSection('NASDAQ')"
+          :class="{ 'bg-blue-200': $route.path === '/nasdaq' }"
         >
           NASDAQ
-        </button>
-        <button
+        </router-link>
+        <router-link
+          to="/dax"
           class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-100"
-          :class="{ 'bg-blue-200': activeSection === 'DAX' }"
-          @click="scrollToSection('DAX')"
+          :class="{ 'bg-blue-200': $route.path === '/dax' }"
         >
           DAX
-        </button>
-        <button
+        </router-link>
+        <router-link
+          to="/nikkei"
           class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-100"
-          :class="{ 'bg-blue-200': activeSection === 'NIKKEI' }"
-          @click="scrollToSection('NIKKEI')"
+          :class="{ 'bg-blue-200': $route.path === '/nikkei' }"
         >
           NIKKEI
-        </button>
+        </router-link>
       </nav>
     </aside>
 
     <!-- Content -->
     <main class="ml-64 flex-1 p-10 space-y-16">
-      <section id="intro" class="bg-white p-8 rounded-xl shadow">
-        <IndicesChart />
-      </section>
-
-      <section id="chart" class="bg-white p-8 rounded-xl shadow">
-        <Predict />
-      </section>
-
-      <section id="S&P 500" class="bg-white p-8 rounded-xl shadow">
-        <SNP500 />
-      </section>
-
-      <section id="CAC 40" class="bg-white p-8 rounded-xl shadow">
-        <CAC40 />
-      </section>
-
-      <section id="NASDAQ" class="bg-white p-8 rounded-xl shadow">
-        <NASDAQ />
-      </section>
-
-      <section id="DAX" class="bg-white p-8 rounded-xl shadow">
-        <DAX />
-      </section>
-
-      <section id="NIKKEI" class="bg-white p-8 rounded-xl shadow">
-        <NIKKEI />
-      </section>
+      <router-view />
     </main>
   </div>
 </template>

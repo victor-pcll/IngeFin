@@ -1,70 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Line } from 'vue-chartjs'
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-} from 'chart.js'
-
-ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement)
-
-const chartData = ref(null)
-
-async function fetchSnPData() {
-  try {
-    // Vérifie si les données sont déjà dans le cache
-    const cached = sessionStorage.getItem("snpData")
-    if (cached) {
-      const data = JSON.parse(cached)
-      updateChartData(data)
-      return
-    }
-
-    // Sinon, appel à l'API
-    const res = await fetch('http://127.0.0.1:5000/api/predict')
-    if (!res.ok) throw new Error("Erreur API")
-    const data = await res.json()
-
-    // Cache les données dans sessionStorage
-    sessionStorage.setItem("snpData", JSON.stringify(data))
-
-    updateChartData(data)
-
-  } catch (e) {
-    console.error("Erreur lors du chargement des données :", e)
-  }
-}
-
-function updateChartData(data) {
-  chartData.value = {
-    labels: [...data.historical_dates, ...data.forecast_dates],
-    datasets: [
-      {
-        label: 'Historique',
-        data: [...data.historical, ...Array(data.forecast.length).fill(null)],
-        borderColor: 'blue',
-        tension: 0.3,
-      },
-      {
-        label: 'Prévision',
-        data: [...Array(data.historical.length).fill(null), ...data.forecast],
-        borderColor: 'orange',
-        borderDash: [5, 5],
-        tension: 0.3,
-      }
-    ]
-  }
-}
-
-onMounted(() => {
-  fetchSnPData()
-})
+import ChartWithCache from './ChartWithCache.vue'
 </script>
 
 <template>
@@ -73,10 +8,7 @@ onMounted(() => {
       Le <strong>DAX</strong>, ou <strong>Deutscher Aktienindex</strong>, est un indice boursier allemand qui reflète la performance des <strong>30 plus grandes entreprises cotées à la Bourse de Francfort</strong>. Il est souvent considéré comme l’indicateur principal de la santé de l’économie allemande et de l’ensemble du marché boursier européen.
     </p>
 
-    <div v-if="chartData" class="bg-white p-4 m-8">
-        <Line :data="chartData" />
-    </div>
-    <div v-else class="text-gray-500 text-sm mb-4">Chargement du graphique...</div>
+    <ChartWithCache api-url="http://127.0.0.1:5000/api/predict_DAX" cache-key="'daxData'"/>
 
     <p class="mb-4">
       Le DAX a été créé en <strong>1988</strong> par la Bourse de Francfort (aujourd’hui part de la société Deutsche Börse). L’indice est pondéré par capitalisation boursière, ce qui signifie que les entreprises ayant une plus grande valeur boursière influencent davantage son évolution. Le DAX couvre des entreprises issues de divers secteurs comme la technologie, l’automobile, l’énergie, les biens de consommation et la finance.

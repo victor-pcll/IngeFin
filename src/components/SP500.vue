@@ -1,70 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Line } from 'vue-chartjs'
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-} from 'chart.js'
-
-ChartJS.register(Title, Tooltip, Legend, LineElement, CategoryScale, LinearScale, PointElement)
-
-const chartData = ref(null)
-
-async function fetchSnPData() {
-  try {
-    // Vérifie si les données sont déjà dans le cache
-    const cached = sessionStorage.getItem("snpData")
-    if (cached) {
-      const data = JSON.parse(cached)
-      updateChartData(data)
-      return
-    }
-
-    // Sinon, appel à l'API
-    const res = await fetch('http://127.0.0.1:5000/api/predict_SP500')
-    if (!res.ok) throw new Error("Erreur API")
-    const data = await res.json()
-
-    // Cache les données dans sessionStorage
-    sessionStorage.setItem("snpData", JSON.stringify(data))
-
-    updateChartData(data)
-
-  } catch (e) {
-    console.error("Erreur lors du chargement des données :", e)
-  }
-}
-
-function updateChartData(data) {
-  chartData.value = {
-    labels: [...data.historical_dates, ...data.forecast_dates],
-    datasets: [
-      {
-        label: 'Historique',
-        data: [...data.historical, ...Array(data.forecast.length).fill(null)],
-        borderColor: 'blue',
-        tension: 0.3,
-      },
-      {
-        label: 'Prévision',
-        data: [...Array(data.historical.length).fill(null), ...data.forecast],
-        borderColor: 'orange',
-        borderDash: [5, 5],
-        tension: 0.3,
-      }
-    ]
-  }
-}
-
-onMounted(() => {
-  fetchSnPData()
-})
+import ChartWithCache from './ChartWithCache.vue'
 </script>
 
 <template>
@@ -73,10 +8,7 @@ onMounted(() => {
         Le S&amp;P 500, ou Standard &amp; Poor’s 500, est un indice boursier américain qui reflète la performance des 500 plus grandes entreprises cotées en bourse aux États-Unis. Il est considéré comme l’un des meilleurs indicateurs de la santé de l’économie américaine et du marché boursier en général.
     </p>
 
-    <div v-if="chartData" class="bg-white p-4 m-8">
-        <Line :data="chartData" />
-    </div>
-    <div v-else class="text-gray-500 text-sm mb-4">Chargement du graphique...</div>
+    <ChartWithCache api-url="http://127.0.0.1:5000/api/predict_SP500" cache-key="'spData'"/>
 
     <p class="mb-4">
         L’indice a été créé en 1957 par la société Standard &amp; Poor’s, aujourd’hui une division de S&amp;P Global. Contrairement à d’autres indices qui suivent un petit nombre d’entreprises (comme le Dow Jones avec seulement 30 sociétés), le S&amp;P 500 offre une vue d’ensemble plus large du marché, car il comprend des entreprises issues de différents secteurs : technologie, santé, énergie, consommation, finance, etc.
