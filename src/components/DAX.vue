@@ -3,7 +3,7 @@ import ChartWithCache from './ChartWithCache.vue'
 </script>
 
 <template>
-    <h2 class="text-2xl font-bold mb-4">DAX – Analyse et Prévisions</h2>
+    <h2 class="text-2xl font-bold mb-4">DAX</h2>
     <p class="mb-4">
       Le <strong>DAX</strong>, ou <strong>Deutscher Aktienindex</strong>, est un indice boursier allemand qui reflète la performance des <strong>30 plus grandes entreprises cotées à la Bourse de Francfort</strong>. Il est souvent considéré comme l’indicateur principal de la santé de l’économie allemande et de l’ensemble du marché boursier européen.
     </p>

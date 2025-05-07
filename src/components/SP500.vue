@@ -3,7 +3,7 @@ import ChartWithCache from './ChartWithCache.vue'
 </script>
 
 <template>
-    <h2 class="text-2xl font-bold mb-4">S&P 500 – Analyse et Prévisions</h2>
+    <h2 class="text-2xl font-bold mb-4">S&P 500</h2>
     <p class="mb-4">
         Le S&amp;P 500, ou Standard &amp; Poor’s 500, est un indice boursier américain qui reflète la performance des 500 plus grandes entreprises cotées en bourse aux États-Unis. Il est considéré comme l’un des meilleurs indicateurs de la santé de l’économie américaine et du marché boursier en général.
     </p>

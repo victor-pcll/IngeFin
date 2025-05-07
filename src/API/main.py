@@ -19,7 +19,10 @@ def predict_SP500():
 
     model = ARIMA(closing_prices, order=(5, 1, 0))
     model_fit = model.fit()
-    forecast = model_fit.forecast(steps=7)
+    pred = model_fit.get_forecast(steps=7)
+    forecast = pred.predicted_mean
+    conf_int = pred.conf_int()
+    stderr = pred.se_mean
 
     future_dates = pd.date_range(closing_prices.index[-1], periods=8, freq="D")[1:]
 
@@ -27,7 +30,9 @@ def predict_SP500():
         "historical": closing_prices.tolist(),
         "historical_dates": [d.strftime("%Y-%m-%d") for d in closing_prices.index],
         "forecast": forecast.tolist(),
-        "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates]
+        "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates],
+        "conf_int" : conf_int.values.tolist(),
+        "stderr" : stderr.tolist(),
     })
 
 @app.route('/api/predict_CAC40', endpoint='predict_CAC40')
@@ -40,9 +45,12 @@ def predict_CAC40():
         if isinstance(closing_prices, pd.DataFrame):
             closing_prices = closing_prices.iloc[:, 0]
 
-        model = ARIMA(closing_prices, order=(5, 1, 0))
+        model = ARIMA(closing_prices, order=(10, 1, 0))
         model_fit = model.fit()
-        forecast = model_fit.forecast(steps=7)
+        pred = model_fit.get_forecast(steps=7)
+        forecast = pred.predicted_mean
+        conf_int = pred.conf_int()
+        stderr = pred.se_mean
 
         future_dates = pd.date_range(closing_prices.index[-1], periods=8, freq="D")[1:]
 
@@ -50,7 +58,9 @@ def predict_CAC40():
             "historical": closing_prices.tolist(),
             "historical_dates": [d.strftime("%Y-%m-%d") for d in closing_prices.index],
             "forecast": forecast.tolist(),
-            "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates]
+            "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates],
+            "conf_int" : conf_int.values.tolist(),
+            "stderr" : stderr.tolist(),
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -65,9 +75,12 @@ def predict_DAX():
         if isinstance(closing_prices, pd.DataFrame):
             closing_prices = closing_prices.iloc[:, 0]
 
-        model = ARIMA(closing_prices, order=(5, 1, 0))
+        model = ARIMA(closing_prices, order=(10, 1, 0))
         model_fit = model.fit()
-        forecast = model_fit.forecast(steps=7)
+        pred = model_fit.get_forecast(steps=7)
+        forecast = pred.predicted_mean
+        conf_int = pred.conf_int()
+        stderr = pred.se_mean
 
         future_dates = pd.date_range(closing_prices.index[-1], periods=8, freq="D")[1:]
 
@@ -75,7 +88,9 @@ def predict_DAX():
             "historical": closing_prices.tolist(),
             "historical_dates": [d.strftime("%Y-%m-%d") for d in closing_prices.index],
             "forecast": forecast.tolist(),
-            "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates]
+            "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates],
+            "conf_int" : conf_int.values.tolist(),
+            "stderr" : stderr.tolist(),
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -92,7 +107,10 @@ def predict_NASDAQ():
 
         model = ARIMA(closing_prices, order=(5, 1, 0))
         model_fit = model.fit()
-        forecast = model_fit.forecast(steps=7)
+        pred = model_fit.get_forecast(steps=7)
+        forecast = pred.predicted_mean
+        conf_int = pred.conf_int()
+        stderr = pred.se_mean
 
         future_dates = pd.date_range(closing_prices.index[-1], periods=8, freq="D")[1:]
 
@@ -100,7 +118,9 @@ def predict_NASDAQ():
             "historical": closing_prices.tolist(),
             "historical_dates": [d.strftime("%Y-%m-%d") for d in closing_prices.index],
             "forecast": forecast.tolist(),
-            "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates]
+            "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates],
+            "conf_int" : conf_int.values.tolist(),
+            "stderr" : stderr.tolist(),
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -117,7 +137,10 @@ def predict_NEKKEI():
 
         model = ARIMA(closing_prices, order=(5, 1, 0))
         model_fit = model.fit()
-        forecast = model_fit.forecast(steps=7)
+        pred = model_fit.get_forecast(steps=7)
+        forecast = pred.predicted_mean
+        conf_int = pred.conf_int()
+        stderr = pred.se_mean
 
         future_dates = pd.date_range(closing_prices.index[-1], periods=8, freq="D")[1:]
 
@@ -125,7 +148,9 @@ def predict_NEKKEI():
             "historical": closing_prices.tolist(),
             "historical_dates": [d.strftime("%Y-%m-%d") for d in closing_prices.index],
             "forecast": forecast.tolist(),
-            "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates]
+            "forecast_dates": [d.strftime("%Y-%m-%d") for d in future_dates],
+            "conf_int" : conf_int.values.tolist(),
+            "stderr" : stderr.tolist(),
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500

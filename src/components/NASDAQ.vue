@@ -3,7 +3,7 @@ import ChartWithCache from './ChartWithCache.vue'
 </script>
 
 <template>
-    <h2 class="text-2xl font-bold mb-4">NASDAQ – Analyse et Prévisions</h2>
+    <h2 class="text-2xl font-bold mb-4">NASDAQ</h2>
     <p class="mb-4">
       Le <strong>NASDAQ</strong> (National Association of Securities Dealers Automated Quotations) est un indice boursier américain qui regroupe principalement des entreprises de <strong>technologie et d'innovation</strong>. Il est souvent vu comme un baromètre des secteurs de la technologie, des biotechnologies et des entreprises à forte croissance.
     </p>

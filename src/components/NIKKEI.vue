@@ -3,7 +3,7 @@ import ChartWithCache from './ChartWithCache.vue'
 </script>
 
 <template>
-    <h2 class="text-2xl font-bold mb-4">Nikkei 225 – Analyse et Prévisions</h2>
+    <h2 class="text-2xl font-bold mb-4">Nikkei 225</h2>
     <p class="mb-4">
       Le <strong>Nikkei 225</strong> est un indice boursier japonais qui suit la performance des <strong>225 plus grandes entreprises cotées à la Bourse de Tokyo</strong>. Il est l’un des indices boursiers les plus suivis en Asie et représente un indicateur clé de l’économie japonaise.
     </p>

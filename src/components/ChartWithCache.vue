@@ -67,23 +67,47 @@ watch(
 function updateChart(data) {
   const labels = data.historical_dates.concat(data.forecast_dates || [])
 
+  const forecastLength = data.forecast?.length || 0
+  const paddedNulls = Array(data.historical.length).fill(null)
+
+  const upperBound = paddedNulls.concat(data.conf_int.map(ci => ci[1]))
+  const lowerBound = paddedNulls.concat(data.conf_int.map(ci => ci[0]))
+
   const datasets = [
     {
-      label: 'Historique',
-      data: data.historical,
-      borderColor: colors[0],
-      fill: false,
-      tension: 0.1
+        label: 'Historique',
+        data: data.historical,
+        borderColor: colors[0],
+        fill: false,
+        tension: 0.1
     },
     {
-      label: 'Prévision',
-      data: Array(data.historical.length).fill(null).concat(data.forecast),
-      borderColor: colors[1],
-      borderDash: [5, 5],
-      fill: false,
-      tension: 0.1
+        label: 'Prévision',
+        data: paddedNulls.concat(data.forecast),
+        borderColor: colors[1],
+        borderDash: [5, 5],
+        fill: false,
+        tension: 0.1
+    },
+    {
+        label: 'Intervalle haut (95%)',
+        data: upperBound,
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderDash: [2, 2],
+        fill: false,
+        pointRadius: 0,
+        tension: 0.1
+    },
+    {
+        label: 'Intervalle bas (95%)',
+        data: lowerBound,
+        borderColor: 'rgba(153, 102, 255, 1)',
+        borderDash: [2, 2],
+        fill: false,
+        pointRadius: 0,
+        tension: 0.1
     }
-  ]
+    ]
 
   // Crée une copie profonde de `chartData` pour chaque graphique
   chartData.value = {

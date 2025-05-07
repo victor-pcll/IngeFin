@@ -3,7 +3,7 @@ import ChartWithCache from './ChartWithCache.vue'
 </script>
 
 <template>
-  <h2 class="text-2xl font-bold mb-4">CAC 40 – Analyse et Prévisions</h2>
+  <h2 class="text-2xl font-bold mb-4">CAC 40</h2>
   <p class="mb-4">
     Le <strong>CAC 40</strong>, ou <strong>Cotation Assistée en Continu 40</strong>, est un indice boursier français qui reflète la performance des <strong>40 plus grandes entreprises cotées à la Bourse de Paris</strong>. Il est souvent considéré comme l’indicateur principal de la santé de l’économie française et du marché boursier européen.
   </p>
