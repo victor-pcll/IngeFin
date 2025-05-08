@@ -9,10 +9,12 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    ghPages(),
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
+  base: '/IngeFin/',
 })

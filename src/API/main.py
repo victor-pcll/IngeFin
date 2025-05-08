@@ -10,7 +10,7 @@ CORS(app)
 @app.route('/api/predict_SP500', endpoint='predict_SP500')
 def predict_SP500():
     ticker = "^GSPC"
-    data = yf.download(ticker, period="60d", interval="1d")
+    data = yf.download(ticker, period="1y", interval="1d")
 
     # Vérification et conversion en Series
     closing_prices = data["Close"]
@@ -39,7 +39,7 @@ def predict_SP500():
 def predict_CAC40():
     try:
         ticker = "^FCHI"
-        data = yf.download(ticker, period="60d", interval="1d")
+        data = yf.download(ticker, period="1y", interval="1d")
 
         closing_prices = data["Close"]
         if isinstance(closing_prices, pd.DataFrame):
@@ -69,7 +69,7 @@ def predict_CAC40():
 def predict_DAX():
     try:
         ticker = "^GDAXI"
-        data = yf.download(ticker, period="60d", interval="1d")
+        data = yf.download(ticker, period="1y", interval="1d")
 
         closing_prices = data["Close"]
         if isinstance(closing_prices, pd.DataFrame):
@@ -99,7 +99,7 @@ def predict_DAX():
 def predict_NASDAQ():
     try:
         ticker = "^IXIC"
-        data = yf.download(ticker, period="60d", interval="1d")
+        data = yf.download(ticker, period="1y", interval="1d")
 
         closing_prices = data["Close"]
         if isinstance(closing_prices, pd.DataFrame):
@@ -129,7 +129,7 @@ def predict_NASDAQ():
 def predict_NEKKEI():
     try:
         ticker = "^N225"
-        data = yf.download(ticker, period="60d", interval="1d")
+        data = yf.download(ticker, period="1y", interval="1d")
 
         closing_prices = data["Close"]
         if isinstance(closing_prices, pd.DataFrame):
