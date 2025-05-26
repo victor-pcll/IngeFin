@@ -1,4 +1,4 @@
-# 🏦 IngeFin : MarketFluctuationsAnalyzer
+# 🏦 IngeFin : Market Fluctuations Analyzer
 
 ## Description
 
